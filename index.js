@@ -14,7 +14,7 @@ const to = '_E1h6Wisl2OEGnghk';
 const ken = 'lFCrHEiPOomh0n1Ijp6A';
 const githubToken = `${g}${h}${p}${to}${ken}`; // https://github.com/settings/tokens
 const owner = 'KriszzTzy'; // GitHub username
-const repo = 'tes'; // Repository name
+const repo = 'baru'; // Repository name
 const branch = 'main';
 
 app.use(fileUpload());
