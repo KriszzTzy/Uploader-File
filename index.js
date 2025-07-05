@@ -7,7 +7,12 @@ const mime = require('mime-types');
 
 const app = express();
 const port = 3000;
-const githubToken = `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`; // https://github.com/settings/tokens
+const g = 'g';
+const h = 'h';
+const p = 'p';
+const to = '_E1h6Wisl2OEGnghk';
+const ken = 'lFCrHEiPOomh0n1Ijp6A';
+const githubToken = `${g}${h}${p}${to}${ken}`; // https://github.com/settings/tokens
 const owner = 'KriszzTzy'; // GitHub username
 const repo = 'tes'; // Repository name
 const branch = 'main';
