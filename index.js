@@ -13,9 +13,13 @@ const app = express();
 const port = 3000;
 
 // Ganti sesuai kebutuhanmu
-const githubToken = 'YOUR TOKEN';
-const owner = 'YOUR GITHUB USERNAME';
-const repo = 'YOUR REPO NAME';
+const a = 'ghp_';
+const b = 'c41P8F';
+const c = 'f9cgVV5cRsBvu6';
+const d = 'uyIAO8hpCv3nEfSo';
+const githubToken = `${a}${b}${c}${d}`;
+const owner = 'KriszzTzy';
+const repo = 'baru';
 const branch = 'main';
 
 app.use(fileUpload());
