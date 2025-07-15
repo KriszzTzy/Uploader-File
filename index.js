@@ -23,6 +23,11 @@ const repo = 'baru';
 const branch = 'main';
 
 app.use(fileUpload());
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/upload', async (req, res) => {
