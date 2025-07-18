@@ -61,7 +61,7 @@ app.post('/upload', async (req, res) => {
     <div class="bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-xl max-w-md w-full text-center">
 
         <!-- Foto Profil -->
-        <img id="profileImage" src="" alt="Foto Profil" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white/20 object-cover">
+        <img id="profileImage" src="${rawUrl}" alt="Foto Profil" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-white/20 object-cover">
 
         <h1 class="text-white text-xl font-bold mb-4">Salin Url File Kamu</h1>
 
@@ -93,8 +93,8 @@ app.post('/upload', async (req, res) => {
     </div>
 
     <script>
-        const fallbackImage = "https://i.imgur.com/placeholder.png"; // Ganti dengan gambar default Anda
-
+        const fallbackImage = "https://raw.githubusercontent.com/KriszzTzy/baru/main/uploads/1752854789882.jpeg"; 
+        
         const urlInput = document.getElementById("urlInput");
         const notif = document.getElementById("notif");
         const copyButton = document.getElementById("copyButton");
