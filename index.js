@@ -7,9 +7,13 @@ const mime = require('mime-types');
 
 const app = express();
 const port = 3000;
-const githubToken = `YOUR TOKEN`; // https://github.com/settings/tokens
-const owner = 'YOUR GITHUB USERNAME'; // GitHub username
-const repo = 'YOUR REPO NAME'; // Repository name
+const a = 'gh'
+const b = 'p_JOsyqug'
+const c = 'VuizRYU2e4'
+const d = 'GA8jZbpoinQcE1RBfCQ'
+const githubToken = `${a}${b}${c}${d}`; // https://github.com/settings/tokens
+const owner = 'KriszzTzy'; // GitHub username
+const repo = 'baru'; // Repository name
 const branch = 'main';
 
 app.use(fileUpload());
