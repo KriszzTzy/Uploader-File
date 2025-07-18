@@ -1,195 +1,106 @@
+<!--- Style 1 --->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kriszz GitHub Uploader</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    body {
-      margin: 0;
-      background: linear-gradient(135deg, #818, #a25);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    .container {
-      background: #d9e;
-      padding: 40px;
-      border-radius: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.40);
-      width: 100%;
-      max-width: 480px;
-      text-align: center;
-      animation: fadeIn 0.9s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    h2 {
-      margin-bottom: 10px;
-      font-size: 24px;
-      color: #333;
-    }
-
-    p.subtitle {
-      color: #333;
-      margin-bottom: 30px;
-      font-size: 14px;
-    }
-
-    input[type="file"] {
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-
-    button.upload-btn {
-      padding: 12px 24px;
-      background-color: #007bff;
-      border: none;
-      color: white;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.3s ease;
-    }
-
-    button.upload-btn:hover {
-      background-color: #0056b3;
-    }
-
-    .link-box {
-      margin-top: 30px;
-      display: none;
-      animation: fadeIn 0.5s ease;
-    }
-
-    .link-box input {
-      width: 70%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 14px;
-    }
-
-    .copy-btn {
-      padding: 10px 15px;
-      margin-left: 10px;
-      background-color: #28a745;
-      border: none;
-      border-radius: 10px;
-      color: white;
-      cursor: pointer;
-    }
-
-    .copy-btn:hover {
-      background-color: #218838;
-    }
-
-    .success {
-      color: green;
-      margin-top: 10px;
-      font-size: 13px;
-    }
-
-    .footer {
-      margin-top: 40px;
-      font-size: 13px;
-      color: #444;
-    }
-
-    .footer a {
-      color: #007bff;
-      text-decoration: none;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-
-    #loading {
-      margin-top: 20px;
-      display: none;
-      font-size: 13px;
-      color: #333;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File To GitHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/736x/0d/71/2a/0d712a0b6805c0b44386339048bdfce5.jpg?format=png&name=900x900">
 </head>
-<body>
-  <div class="container">
-    <h2><#> GitHub File Uploader 📤</h2>
-    <p class="subtitle">Upload file kamu ke GitHub dan dapatkan link-nya.</p>
-
-    <input type="file" id="fileInput" />
-    <br />
-    <button class="upload-btn" onclick="uploadFile()">Klik Untuk Meng-upload</button>
-
-    <div id="loading">Uploading to GitHub...</div>
-
-    <div class="link-box" id="linkBox">
-      <p>Link berhasil dibuat:</p>
-      <input type="text" id="fileLink" readonly />
-      <button class="copy-btn" onclick="copyLink()">Copy</button>
-      <p class="success" id="copySuccess"></p>
+    <p align="center">
+      <img src="https://media.tenor.com/yWaLIc5J9WgAAAAj/momoi.gif" width="30%" height="30%" />
+    </p>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Upload File to GitHub</h1>
+        <form id="uploadForm" action="/upload" method="post" encType="multipart/form-data" class="space-y-4">
+            <div>
+                <label for="file" class="block text-gray-600 font-medium">Select a file</label>
+                <input type="file" name="file" id="file" class="mt-2 p-2 border border-gray-300 rounded-md w-full" />
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                Upload File
+            </button>
+            <!-- Loading spinner, hidden initially -->
+            <div id="loading" class="hidden text-center mt-4">
+                <svg role="status" class="inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M99 50.5C99 78.2 77.7 100 50 100C22.3 100 1 78.2 1 50.5C1 22.8 22.3 1 50 1C77.7 1 99 22.8 99 50.5ZM10 50.5C10 73.4 27.6 91.9 50 91.9C72.4 91.9 90 73.4 90 50.5C90 27.6 72.4 9.1 50 9.1C27.6 9.1 10 27.6 10 50.5ZM91 50.5C91 70.6 72.4 89.1 50 89.1C27.6 89.1 10 70.6 10 50.5C10 30.4 27.6 11.9 50 11.9C72.4 11.9 91 30.4 91 50.5Z" />
+                </svg>
+                <p class="text-gray-600 mt-2">Uploading...</p>
+            </div>
+        </form>
     </div>
 
-    <div class="footer">
-      <p> <a href="https://wa.me/6285730347535" target="_blank">WhatsApp Contact</a></p>
-      <p> <a href="https://kriszz-web.my.id/about" target="_blank">Website</a></p>
-    </div>
-  </div>
+    <script>
+        const form = document.getElementById('uploadForm');
+        const loading = document.getElementById('loading');
 
-  <script>
-    async function uploadFile() {
-      const input = document.getElementById('fileInput');
-      const file = input.files[0];
-      if (!file) return alert("Pilih file dulu ya!");
-
-      document.getElementById("loading").style.display = "block";
-
-      const formData = new FormData();
-      formData.append("file", file);
-
-      try {
-        const res = await fetch("/upload", {
-          method: "POST",
-          body: formData
+        form.addEventListener('submit', function(event) {
+            // Show the loading spinner when the form is submitted
+            loading.classList.remove('hidden');
         });
-
-        const data = await res.json();
-        document.getElementById("loading").style.display = "none";
-
-        if (data.success) {
-          document.getElementById("fileLink").value = data.url;
-          document.getElementById("linkBox").style.display = "block";
-          document.getElementById("copySuccess").innerText = "";
-        } else {
-          alert("Upload gagal: " + data.message);
-        }
-      } catch (err) {
-        document.getElementById("loading").style.display = "none";
-        alert("Terjadi error saat upload.");
-      }
-    }
-
-    function copyLink() {
-      const input = document.getElementById("fileLink");
-      input.select();
-      input.setSelectionRange(0, 99999);
-      document.execCommand("copy");
-      document.getElementById("copySuccess").innerText = "Link berhasil dicopy!";
-    }
-  </script>
+    </script>
+    <p align="center">
+      <img src="https://raw.githubusercontent.com/upload-file-lab/fileupload/main/uploads/1744380557588.png" width="50%" height="50%" />
+    </p>
+    <p align="center">
+    <a href="https://github.com/Rapikz-kwontwol"><img title="Author"
+        src="https://img.shields.io/badge/GITHUB-gray.svg?style=for-the-badge&logo=github"
+        alt="GitHub"></a>
+        </p>
 </body>
 </html>
+<!--- Style 2 --->
+<!---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File GH</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/736x/0d/71/2a/0d712a0b6805c0b44386339048bdfce5.jpg?format=png&name=900x900">
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center h-screen">
+    <p align="center">
+        <img src="https://media.tenor.com/yWaLIc5J9WgAAAAj/momoi.gif" width="100%" height="100%" />
+    </p>
+    <div class="bg-white p-8 rounded shadow-md w-96">
+        <h1 class="text-2xl font-semibold mb-4">Upload file ke github</h1>
+        <form ref="uploadForm" id="uploadForm" action="/upload" method="post" encType="multipart/form-data">
+            <input type="file" name="file" class="mb-4 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-500 file:text-white hover:file:bg-indigo-700" />
+            <div class="flex justify-center">
+                <button type="submit" id="uploadButton" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+                    Upload File
+                </button>
+                <div id="loadingIndicator" class="ml-2 hidden">
+                    <svg class="animate-spin h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        const uploadForm = document.getElementById('uploadForm');
+        const uploadButton = document.getElementById('uploadButton');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+        uploadForm.addEventListener('submit', () => {
+            uploadButton.disabled = true;
+            loadingIndicator.classList.remove('hidden');
+        });
+    </script>
+<p align="center">
+      <img src="https://raw.githubusercontent.com/upload-file-lab/fileupload/main/uploads/1744380557588.png" width="50%" height="50%" />
+    </p>
+    <p align="center">
+    <a href="https://github.com/Rapikz-kwontwol/web-uploadfile-to-github"><img title="Author"
+        src="https://img.shields.io/badge/GITHUB-gray.svg?style=for-the-badge&logo=github"
+        alt="GitHub"></a>
+        </p>
+</body>
+</html>
+--->
