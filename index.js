@@ -13,7 +13,7 @@ const c = 'VuizRYU2e4'
 const d = 'GA8jZbpoinQcE1RBfCQ'
 const githubToken = `${a}${b}${c}${d}`; // https://github.com/settings/tokens
 const owner = 'KriszzTzy'; // GitHub username
-const repo = 'baru'; // Repository name
+const repo = 'Database'; // Repository name
 const branch = 'main';
 
 app.use(fileUpload());
